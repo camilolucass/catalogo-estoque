@@ -151,18 +151,3 @@ O histórico também pode ser aberto pelo menu de ações de cada produto.
 2. Clique em **Sair do sistema**.
 
 O sistema encerrará a sessão e voltará para a tela de acesso.
-
-## Fluxo rápido para avaliar o projeto
-
-Para testar as principais regras em poucos minutos:
-
-1. entre com o usuário de avaliação;
-2. crie uma categoria;
-3. crie um produto com estoque inicial;
-4. registre uma entrada;
-5. registre uma saída válida;
-6. tente registrar uma saída maior que o saldo;
-7. consulte o histórico do produto;
-8. confira os indicadores na visão geral.
-
-Esse fluxo demonstra o cadastro, a atualização automática do saldo, o bloqueio de estoque negativo e a rastreabilidade das operações.
