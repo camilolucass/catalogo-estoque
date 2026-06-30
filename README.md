@@ -50,6 +50,7 @@ src/components   componentes da interface
 src/lib          autenticação, validações e acesso aos dados
 supabase         migração do banco de dados
 scripts          criação do usuário de avaliação
+docs             guia de uso e documentação técnica
 ```
 
 ## Publicação
@@ -58,4 +59,7 @@ scripts          criação do usuário de avaliação
 - Repositório: https://github.com/camilolucass/catalogo-estoque
 - Banco e autenticação: Supabase online
 
-Escrevi um resumo das escolhas e das dificuldades em [RELATO.md](./RELATO.md).
+## Documentação
+
+- [Guia de uso](./docs/GUIA-DE-USO.md): passo a passo para utilizar cada parte do sistema.
+- [Documentação técnica](./docs/DOCUMENTACAO-TECNICA.md): arquitetura, banco, regras, segurança e tecnologias usadas.
