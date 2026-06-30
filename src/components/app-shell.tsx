@@ -40,12 +40,12 @@ function Navigation({ pathname }: { pathname: string }) {
       {navigation.map(({ href, label, icon: Icon }) => {
         const active = pathname === href || pathname.startsWith(`${href}/`);
         return (
-          <Link key={href} href={href} className={cn("group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-muted-foreground transition-all hover:bg-sidebar-accent/60 hover:text-foreground", active && "bg-sidebar-accent text-foreground shadow-sm shadow-black/10")}>
+          <Link key={href} href={href} className={cn("group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-sidebar-accent hover:text-foreground", active && "bg-sidebar-accent text-foreground")}>
             <span className={cn("flex size-8 items-center justify-center rounded-lg border border-transparent transition-colors", active && "border-primary/20 bg-primary/10 text-primary")}>
               <Icon className="size-4" aria-hidden="true" />
             </span>
             {label}
-            {active && <span className="ml-auto size-1.5 rounded-full bg-primary shadow-[0_0_12px_var(--primary)]" />}
+            {active && <span className="ml-auto size-1.5 rounded-full bg-primary" />}
           </Link>
         );
       })}
@@ -82,13 +82,13 @@ export function AppShell({ user, children }: AppShellProps) {
   const pathname = usePathname();
   return (
     <div className="min-h-screen">
-      <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 border-r border-sidebar-border bg-sidebar/92 p-4 backdrop-blur-xl lg:flex lg:flex-col">
+      <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 border-r border-sidebar-border bg-sidebar p-4 lg:flex lg:flex-col">
         <BrandMark className="px-2 py-2" />
         <Separator className="my-5" />
         <Navigation pathname={pathname} />
       </aside>
       <div className="lg:pl-64">
-        <header className="sticky top-0 z-20 flex h-16 items-center gap-3 border-b border-border/60 bg-background/82 px-4 backdrop-blur-xl md:px-7">
+        <header className="sticky top-0 z-20 flex h-16 items-center gap-3 border-b bg-background px-4 md:px-7">
           <Sheet>
             <SheetTrigger asChild><Button variant="outline" size="icon" className="lg:hidden"><Menu /></Button></SheetTrigger>
             <SheetContent side="left" className="w-72 bg-sidebar p-4">

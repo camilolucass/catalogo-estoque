@@ -30,21 +30,21 @@ export default async function DashboardPage() {
       </section>
 
       <section className="grid gap-4 xl:grid-cols-[1.55fr_0.85fr]">
-        <Card className="border-border/70 bg-card/78 panel-glow">
+        <Card className="border bg-card shadow-sm">
           <CardHeader>
             <CardTitle>Fluxo de movimentações</CardTitle>
             <CardDescription>Volume de entradas e saídas nos últimos sete dias</CardDescription>
           </CardHeader>
           <CardContent><MovementChart data={data.movementTrend} /></CardContent>
         </Card>
-        <Card className="border-border/70 bg-card/78 panel-glow">
+        <Card className="border bg-card shadow-sm">
           <CardHeader><CardTitle>Produtos por categoria</CardTitle></CardHeader>
           <CardContent><CategoryChart data={data.productsByCategory} /></CardContent>
         </Card>
       </section>
 
       <section className="grid gap-4 xl:grid-cols-[1.45fr_0.95fr]">
-        <Card className="border-border/70 bg-card/78">
+        <Card className="border bg-card shadow-sm">
           <CardHeader><CardTitle>Movimentações recentes</CardTitle><CardAction><Button asChild variant="ghost" size="sm"><Link href="/movimentacoes">Ver histórico</Link></Button></CardAction></CardHeader>
           <CardContent className="px-0">
             <Table>
@@ -64,13 +64,13 @@ export default async function DashboardPage() {
           </CardContent>
         </Card>
 
-        <Card className="border-border/70 bg-card/78">
+        <Card className="border bg-card shadow-sm">
           <CardHeader><CardTitle>Produtos que exigem atenção</CardTitle></CardHeader>
           <CardContent>
             <div className="space-y-3">
               {data.attentionProducts.length === 0 && <p className="rounded-xl border border-dashed border-border p-5 text-center text-sm text-muted-foreground">Nenhum produto exige atenção.</p>}
               {data.attentionProducts.map((product) => (
-                <div key={product.id} className="flex items-center gap-3 rounded-xl border border-border/55 bg-background/25 p-3">
+                <div key={product.id} className="flex items-center gap-3 rounded-lg border bg-background p-3">
                   <div className="flex size-9 items-center justify-center rounded-lg bg-muted metric-number font-semibold">{product.stockQuantity}</div>
                   <div className="min-w-0 flex-1"><p className="truncate text-sm font-medium">{product.name}</p><p className="text-xs text-muted-foreground">Mínimo: {product.minimumStock}</p></div>
                   <StockBadge product={product} />

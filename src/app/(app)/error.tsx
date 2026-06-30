@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 export default function AppError({ reset }: { error: Error & { digest?: string }; reset: () => void }) {
   return (
-    <Card className="mx-auto mt-24 max-w-lg border-destructive/25 bg-card/85">
+    <Card className="mx-auto mt-24 max-w-lg border bg-card shadow-sm">
       <CardContent className="flex flex-col items-center py-10 text-center">
         <span className="mb-5 flex size-14 items-center justify-center rounded-2xl bg-destructive/10 text-destructive"><AlertCircle className="size-7" /></span>
         <h2 className="text-xl font-semibold">Não foi possível carregar esta área</h2>
