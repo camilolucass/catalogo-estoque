@@ -224,13 +224,3 @@ A produção recebe somente as variáveis necessárias para conexão com o Supab
 O projeto prioriza o que demonstra as regras centrais do desafio. Recursos como múltiplos depósitos, pedidos de compra, notificações externas e integrações fiscais não foram adicionados porque aumentariam o escopo sem melhorar a avaliação do controle de saldo.
 
 Se o sistema evoluísse, as próximas melhorias seriam filtro por período, exportação do histórico em CSV, paginação e gestão de diferentes níveis de acesso.
-
-## Relato do desenvolvimento
-
-O trabalho começou pelas regras de estoque e pelo modelo de dados. Essa ordem permitiu construir a interface sobre uma base que já impedia saldo negativo e preservava o histórico.
-
-O ponto que exigiu mais cuidado foi a concorrência nas saídas. Uma validação feita apenas na tela ou no servidor não seria suficiente para duas requisições simultâneas. A solução foi manter a decisão final dentro da transação do PostgreSQL.
-
-Depois dessa base foram construídos autenticação, rotas, formulários, filtros, dashboard, testes, integração contínua e deploy.
-
-Inteligência artificial foi usada como apoio na revisão do código, nos testes de cenários e na organização da documentação. As decisões de escopo foram mantidas de acordo com o objetivo do desafio.

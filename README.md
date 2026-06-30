@@ -63,3 +63,4 @@ docs             guia de uso e documentação técnica
 
 - [Guia de uso](./docs/GUIA-DE-USO.md): passo a passo para utilizar cada parte do sistema.
 - [Documentação técnica](./docs/DOCUMENTACAO-TECNICA.md): arquitetura, banco, regras, segurança e tecnologias usadas.
+- [Relato do desenvolvimento](./RELATO.md): decisões, dificuldades e possíveis melhorias.
