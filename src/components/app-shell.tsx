@@ -6,22 +6,17 @@ import { usePathname } from "next/navigation";
 import {
   BarChart3,
   ChevronDown,
-  CircleUserRound,
   FolderTree,
   LayoutDashboard,
   LogOut,
   Menu,
   PackageOpen,
-  Plus,
-  Search,
-  Settings2,
 } from "lucide-react";
 import { logoutAction } from "@/app/login/actions";
 import { BrandMark } from "@/components/brand-mark";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import type { AuthUser } from "@/lib/domain";
@@ -75,7 +70,6 @@ function UserMenu({ user }: { user: AuthUser }) {
           <span className="block truncate text-xs font-normal text-muted-foreground">{user.email}</span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem disabled><Settings2 />Preferências</DropdownMenuItem>
         <form action={logoutAction}>
           <DropdownMenuItem asChild><button type="submit" className="w-full"><LogOut />Sair do sistema</button></DropdownMenuItem>
         </form>
@@ -92,12 +86,6 @@ export function AppShell({ user, children }: AppShellProps) {
         <BrandMark className="px-2 py-2" />
         <Separator className="my-5" />
         <Navigation pathname={pathname} />
-        <div className="mt-auto space-y-4">
-          <div className="flex items-center gap-3 rounded-xl px-2 py-1">
-            <Avatar className="size-9 border border-border"><AvatarFallback><CircleUserRound className="size-4" /></AvatarFallback></Avatar>
-            <div className="min-w-0"><p className="truncate text-sm font-medium">{user.name}</p><p className="truncate text-xs text-muted-foreground">Administrador</p></div>
-          </div>
-        </div>
       </aside>
       <div className="lg:pl-64">
         <header className="sticky top-0 z-20 flex h-16 items-center gap-3 border-b border-border/60 bg-background/82 px-4 backdrop-blur-xl md:px-7">
@@ -110,12 +98,7 @@ export function AppShell({ user, children }: AppShellProps) {
               <Navigation pathname={pathname} />
             </SheetContent>
           </Sheet>
-          <div className="relative hidden w-full max-w-sm md:block">
-            <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-            <Input className="h-9 bg-card/55 pl-9" placeholder="Buscar no estoque..." aria-label="Buscar no estoque" />
-          </div>
           <div className="ml-auto flex items-center gap-2">
-            <Button asChild size="sm" className="hidden gap-2 sm:flex"><Link href="/movimentacoes"><Plus />Nova movimentação</Link></Button>
             <UserMenu user={user} />
           </div>
         </header>

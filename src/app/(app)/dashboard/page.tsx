@@ -9,7 +9,6 @@ import { StockBadge } from "@/components/stock-badge";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { getDashboard } from "@/lib/inventory-service";
 import { dateTimeFormatter } from "@/lib/format";
@@ -19,17 +18,15 @@ export const metadata: Metadata = { title: "Dashboard" };
 export default async function DashboardPage() {
   const data = await getDashboard();
   const { metrics } = data;
-  const healthy = metrics.totalProducts === 0 ? 100 : Math.round(((metrics.totalProducts - metrics.lowStockProducts - metrics.outOfStockProducts) / metrics.totalProducts) * 100);
-
   return (
     <div className="space-y-7">
-      <PageHeader title="Visão geral do estoque" action={<Button asChild variant="outline"><Link href="/produtos">Produtos</Link></Button>} />
+      <PageHeader title="Visão geral do estoque" />
 
       <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4" aria-label="Indicadores principais">
         <MetricCard label="Produtos ativos" value={metrics.totalProducts} detail={`${metrics.entriesThisMonth} unidades recebidas no mês`} icon={Boxes} trend="up" />
-        <MetricCard label="Categorias" value={metrics.totalCategories} detail="Categorias cadastradas" icon={FolderTree} />
-        <MetricCard label="Estoque baixo" value={metrics.lowStockProducts} detail="Abaixo do estoque mínimo" icon={AlertTriangle} tone="warning" />
-        <MetricCard label="Sem estoque" value={metrics.outOfStockProducts} detail="Produtos com saldo zero" icon={PackageX} tone="danger" trend={metrics.outOfStockProducts > 0 ? "down" : undefined} />
+        <MetricCard label="Categorias" value={metrics.totalCategories} icon={FolderTree} />
+        <MetricCard label="Estoque baixo" value={metrics.lowStockProducts} detail="Abaixo do mínimo" icon={AlertTriangle} tone="warning" />
+        <MetricCard label="Sem estoque" value={metrics.outOfStockProducts} detail="Saldo zero" icon={PackageX} tone="danger" trend={metrics.outOfStockProducts > 0 ? "down" : undefined} />
       </section>
 
       <section className="grid gap-4 xl:grid-cols-[1.55fr_0.85fr]">
@@ -41,14 +38,14 @@ export default async function DashboardPage() {
           <CardContent><MovementChart data={data.movementTrend} /></CardContent>
         </Card>
         <Card className="border-border/70 bg-card/78 panel-glow">
-          <CardHeader><CardTitle>Produtos por categoria</CardTitle><CardDescription>Distribuição atual do catálogo</CardDescription></CardHeader>
+          <CardHeader><CardTitle>Produtos por categoria</CardTitle></CardHeader>
           <CardContent><CategoryChart data={data.productsByCategory} /></CardContent>
         </Card>
       </section>
 
       <section className="grid gap-4 xl:grid-cols-[1.45fr_0.95fr]">
         <Card className="border-border/70 bg-card/78">
-          <CardHeader><CardTitle>Movimentações recentes</CardTitle><CardDescription>Últimas operações registradas no estoque</CardDescription><CardAction><Button asChild variant="ghost" size="sm"><Link href="/movimentacoes">Ver histórico</Link></Button></CardAction></CardHeader>
+          <CardHeader><CardTitle>Movimentações recentes</CardTitle><CardAction><Button asChild variant="ghost" size="sm"><Link href="/movimentacoes">Ver histórico</Link></Button></CardAction></CardHeader>
           <CardContent className="px-0">
             <Table>
               <TableHeader><TableRow><TableHead className="pl-4">Produto</TableHead><TableHead>Tipo</TableHead><TableHead>Quantidade</TableHead><TableHead className="hidden md:table-cell">Responsável</TableHead><TableHead className="pr-4 text-right">Data</TableHead></TableRow></TableHeader>
@@ -68,12 +65,8 @@ export default async function DashboardPage() {
         </Card>
 
         <Card className="border-border/70 bg-card/78">
-          <CardHeader><CardTitle>Níveis de estoque</CardTitle></CardHeader>
-          <CardContent className="space-y-5">
-            <div className="rounded-2xl border border-border/60 bg-background/35 p-4">
-              <div className="mb-3 flex items-end justify-between"><span className="text-sm text-muted-foreground">Produtos saudáveis</span><span className="metric-number text-2xl font-semibold text-primary">{healthy}%</span></div>
-              <Progress value={healthy} />
-            </div>
+          <CardHeader><CardTitle>Produtos que exigem atenção</CardTitle></CardHeader>
+          <CardContent>
             <div className="space-y-3">
               {data.attentionProducts.length === 0 && <p className="rounded-xl border border-dashed border-border p-5 text-center text-sm text-muted-foreground">Nenhum produto exige atenção.</p>}
               {data.attentionProducts.map((product) => (
