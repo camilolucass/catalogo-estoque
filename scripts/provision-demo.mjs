@@ -7,12 +7,12 @@ try {
   // Variáveis também podem ser fornecidas diretamente pelo ambiente.
 }
 
-const required = ["SUPABASE_URL", "SUPABASE_PUBLISHABLE_KEY", "SUPABASE_SECRET_KEY", "DEMO_USER_PASSWORD"];
+const required = ["SUPABASE_URL", "SUPABASE_PUBLISHABLE_KEY", "SUPABASE_SECRET_KEY", "DEMO_USER_EMAIL", "DEMO_USER_PASSWORD"];
 for (const key of required) {
   if (!process.env[key]) throw new Error(`Variável obrigatória ausente: ${key}`);
 }
 
-const email = process.env.DEMO_USER_EMAIL || "climba@example.com";
+const email = process.env.DEMO_USER_EMAIL;
 const username = process.env.DEMO_USERNAME || "Climba";
 const password = process.env.DEMO_USER_PASSWORD;
 const url = process.env.SUPABASE_URL;

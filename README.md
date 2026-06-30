@@ -78,9 +78,11 @@ SUPABASE_URL=
 SUPABASE_PUBLISHABLE_KEY=
 SUPABASE_SECRET_KEY=
 DEMO_USERNAME=Climba
-DEMO_USER_EMAIL=climba@example.com
+DEMO_USER_EMAIL=seu-email+climba@gmail.com
 DEMO_USER_PASSWORD=conquistarterritorio
 ```
+
+Use um e-mail real ao qual você tenha acesso; domínios de exemplo são rejeitados pelo Supabase Auth.
 
 4. Execute `pnpm provision:demo` uma única vez.
 5. Remova `SUPABASE_SECRET_KEY` do ambiente da aplicação depois do provisionamento. Ela não é necessária em runtime.
