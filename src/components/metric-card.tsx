@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 interface MetricCardProps {
   label: string;
   value: number;
-  detail: string;
+  detail?: string;
   icon: ComponentType<{ className?: string }>;
   tone?: "default" | "warning" | "danger";
   trend?: "up" | "down";
@@ -23,11 +23,13 @@ export function MetricCard({ label, value, detail, icon: Icon, tone = "default",
         </div>
         <div>
           <p className="metric-number text-4xl font-semibold">{value}</p>
-          <p className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
-            {trend === "up" && <ArrowUpRight className="size-3.5 text-primary" />}
-            {trend === "down" && <ArrowDownRight className="size-3.5 text-destructive" />}
-            {detail}
-          </p>
+          {detail && (
+            <p className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
+              {trend === "up" && <ArrowUpRight className="size-3.5 text-primary" />}
+              {trend === "down" && <ArrowDownRight className="size-3.5 text-destructive" />}
+              {detail}
+            </p>
+          )}
         </div>
       </CardContent>
     </Card>

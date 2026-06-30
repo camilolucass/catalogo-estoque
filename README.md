@@ -1,119 +1,92 @@
-# Sistema de controle de estoque
+# Controle de estoque
 
-Aplicação web para catálogo de produtos e controle seguro de estoque. Categorias, produtos e movimentações são reunidos em um dashboard responsivo com métricas, gráficos, filtros e histórico auditável.
+Desenvolvi este projeto para um desafio técnico. A proposta é simples: cadastrar categorias e produtos, registrar entradas e saídas e consultar o saldo de estoque sem complicar a operação.
 
-## Tecnologias
+[Acessar a aplicação](https://catalogo-estoque-five.vercel.app)
 
-- Next.js 16, React 19 e TypeScript
-- Tailwind CSS 4 e shadcn/ui
-- Supabase Auth e PostgreSQL
-- Recharts para visualização de dados
-- Vercel para deploy e previews
-- Vitest, ESLint e TypeScript para qualidade
-
-## Funcionalidades
-
-- Login por usuário e senha
-- CRUD de categorias
-- CRUD e inativação segura de produtos
-- Estoque mínimo configurável por produto
-- Entradas e saídas com atualização automática do saldo
-- Bloqueio transacional de saída superior ao estoque
-- Histórico imutável com usuário responsável
-- Busca e filtros por categoria, disponibilidade e tipo
-- Dashboard com indicadores, gráficos e movimentações recentes
-- Layout responsivo para desktop e dispositivos móveis
-
-## Segurança
-
-- Nenhuma chave administrativa é enviada ao navegador.
-- Todas as operações de escrita são autenticadas e validadas no servidor.
-- O PostgreSQL repete as regras com constraints, grants e RLS.
-- O saldo não possui permissão de alteração direta.
-- Movimentações e saldo são atualizados na mesma transação.
-- `SELECT ... FOR UPDATE` serializa saídas concorrentes.
-- Movimentações não podem ser atualizadas ou excluídas.
-- Cookies de sessão usam `HttpOnly`, `Secure` e `SameSite` em produção.
-- Cabeçalhos de segurança são enviados pelo Next.js.
-
-## Usuário de teste
+## Acesso para avaliação
 
 ```text
 Usuário: Climba
 Senha: conquistarterritorio
 ```
 
-Esta é uma conta exclusivamente demonstrativa. Não reutilize a senha em outros serviços e remova ou rotacione a conta após a avaliação.
+Essa conta existe somente para a avaliação do projeto.
 
-## Executar localmente
+## O que foi implementado
 
-Requisitos: Node.js 22+ e pnpm 11.
+- cadastro, edição e exclusão de categorias;
+- cadastro, edição e inativação de produtos;
+- preço, estoque mínimo e categoria por produto;
+- registro de entradas e saídas com data e observação;
+- atualização automática do saldo;
+- bloqueio de saídas maiores que o estoque disponível;
+- alertas para estoque baixo e produtos sem saldo;
+- histórico de movimentações e responsável pela operação;
+- filtros e busca nas telas de produtos e movimentações;
+- dashboard responsivo com indicadores e gráficos.
 
-```bash
+## Tecnologias usadas
+
+- Next.js, React e TypeScript;
+- Tailwind CSS e shadcn/ui;
+- Supabase Auth e PostgreSQL;
+- Recharts;
+- Vitest, ESLint e GitHub Actions;
+- Vercel.
+
+## Como organizei a solução
+
+Eu deixei a interface responsável apenas pela interação com o usuário. As validações importantes ficam no servidor e também no banco, principalmente a regra que impede o estoque de ficar negativo.
+
+O saldo inicial entra como uma movimentação, produtos com histórico são inativados em vez de excluídos e as movimentações não podem ser alteradas depois de registradas. Assim, o saldo atual pode ser conferido com o histórico.
+
+## Rodando o projeto
+
+É necessário ter Node.js 22 ou superior e pnpm 11.
+
+```powershell
 pnpm install
-cp .env.example .env.local
+Copy-Item .env.example .env.local
 pnpm dev
 ```
 
-Para visualizar a interface sem um projeto Supabase, configure em `.env.local`:
+O projeto usa um Supabase online. Não é necessário instalar ou executar o Supabase localmente.
 
-```env
-APP_DEMO_MODE=true
-DEMO_USERNAME=Climba
-DEMO_USER_EMAIL=climba@example.com
-DEMO_USER_PASSWORD=conquistarterritorio
-DEMO_SESSION_SECRET=uma-chave-local-aleatoria
-```
-
-O modo demonstrativo só funciona fora de produção. Em produção, o Supabase é obrigatório.
-
-## Configurar o Supabase
-
-1. Crie ou selecione um projeto Supabase.
-2. Aplique a migração em `supabase/migrations`.
-3. Configure as variáveis abaixo sem o prefixo `NEXT_PUBLIC_`:
+Preencha estas variáveis em `.env.local`:
 
 ```env
 SUPABASE_URL=
 SUPABASE_PUBLISHABLE_KEY=
-SUPABASE_SECRET_KEY=
 DEMO_USERNAME=Climba
-DEMO_USER_EMAIL=seu-email+climba@gmail.com
-DEMO_USER_PASSWORD=conquistarterritorio
+DEMO_USER_EMAIL=
 ```
 
-Use um e-mail real ao qual você tenha acesso; domínios de exemplo são rejeitados pelo Supabase Auth.
+`SUPABASE_SECRET_KEY` e `DEMO_USER_PASSWORD` são usados somente pelo script de criação da conta de teste. A chave secreta não deve ficar no ambiente da aplicação.
 
-4. Execute `pnpm provision:demo` uma única vez.
-5. Remova `SUPABASE_SECRET_KEY` do ambiente da aplicação depois do provisionamento. Ela não é necessária em runtime.
+## Comandos de verificação
 
-## Verificações
-
-```bash
+```powershell
 pnpm lint
 pnpm typecheck
 pnpm test
 pnpm build
 ```
 
-## Deploy na Vercel
+## Estrutura principal
 
-1. Publique o repositório no GitHub.
-2. Importe o repositório na Vercel.
-3. Configure `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`, `DEMO_USERNAME` e `DEMO_USER_EMAIL` para Production.
-4. Não configure `SUPABASE_SECRET_KEY` no runtime da Vercel.
-5. Cadastre a URL de produção permitida no Supabase Auth.
+```text
+src/app          páginas e rotas da API
+src/components   componentes da interface
+src/lib          autenticação, validações e acesso aos dados
+supabase         migração do banco de dados
+scripts          criação do usuário de avaliação
+```
 
-Link de produção: a preencher após o deploy.
+## Publicação
 
-## Decisões técnicas
+- Aplicação: https://catalogo-estoque-five.vercel.app
+- Repositório: https://github.com/camilolucass/catalogo-estoque
+- Banco e autenticação: Supabase online
 
-O Next.js funciona como Backend for Frontend: a interface chama somente rotas da própria aplicação. A chave publishable fica no servidor por escolha arquitetural, embora não seja secreta. A autorização final permanece no PostgreSQL por meio de RLS e privilégios por coluna.
-
-Produtos que nunca tiveram movimentações podem ser excluídos fisicamente. Produtos com histórico são inativados. Categorias com produtos vinculados não podem ser excluídas. O estoque inicial é registrado como uma movimentação de entrada, preservando a reconciliação entre saldo e histórico.
-
-## Relato rápido
-
-O trabalho começou pela modelagem das entidades e das regras críticas de concorrência. Em seguida foram implementadas as fronteiras de autenticação, validação no servidor e segurança do banco. A interface foi construída sobre esse núcleo com foco em leitura rápida, estados claros e responsividade.
-
-Foram utilizados Next.js, React, TypeScript, Supabase, PostgreSQL, Tailwind CSS, shadcn/ui, Recharts, GitHub e Vercel. Inteligência artificial foi utilizada como apoio na arquitetura, implementação, revisão das regras de negócio, testes e documentação. As decisões finais priorizam rastreabilidade, consistência do estoque e clareza para o avaliador.
+Escrevi um resumo das escolhas e das dificuldades em [RELATO.md](./RELATO.md).
