@@ -52,28 +52,39 @@ export function CategoryManager({ categories }: CategoryManagerProps) {
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setPending(true);
-    const form = new FormData(event.currentTarget);
-    const response = await fetch(editing ? `/api/categories/${editing.id}` : "/api/categories", {
-      method: editing ? "PUT" : "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name: form.get("name"), description: form.get("description") }),
-    });
-    setPending(false);
-    if (!response.ok) return toast.error(await responseMessage(response));
-    toast.success(editing ? "Categoria atualizada." : "Categoria criada.");
-    setDialogOpen(false);
-    router.refresh();
+    try {
+      const form = new FormData(event.currentTarget);
+      const response = await fetch(editing ? `/api/categories/${editing.id}` : "/api/categories", {
+        method: editing ? "PUT" : "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: form.get("name"), description: form.get("description") }),
+      });
+      if (!response.ok) return toast.error(await responseMessage(response));
+      toast.success(editing ? "Categoria atualizada." : "Categoria criada.");
+      setDialogOpen(false);
+      setEditing(null);
+      router.refresh();
+    } catch {
+      toast.error("Não foi possível concluir a operação.");
+    } finally {
+      setPending(false);
+    }
   }
 
   async function remove() {
     if (!deleting) return;
     setPending(true);
-    const response = await fetch(`/api/categories/${deleting.id}`, { method: "DELETE" });
-    setPending(false);
-    if (!response.ok) return toast.error(await responseMessage(response));
-    toast.success("Categoria excluída.");
-    setDeleting(null);
-    router.refresh();
+    try {
+      const response = await fetch(`/api/categories/${deleting.id}`, { method: "DELETE" });
+      if (!response.ok) return toast.error(await responseMessage(response));
+      toast.success("Categoria excluída.");
+      setDeleting(null);
+      router.refresh();
+    } catch {
+      toast.error("Não foi possível concluir a operação.");
+    } finally {
+      setPending(false);
+    }
   }
 
   return (
@@ -98,7 +109,7 @@ export function CategoryManager({ categories }: CategoryManagerProps) {
         </Dialog>
       </div>
 
-      <Card className="border-border/70 bg-card/78">
+      <Card className="border bg-card shadow-sm">
         <CardContent className="px-0">
           <Table>
             <TableHeader><TableRow><TableHead className="pl-4">Categoria</TableHead><TableHead>Descrição</TableHead><TableHead>Produtos</TableHead><TableHead className="hidden md:table-cell">Atualizada em</TableHead><TableHead className="w-14 pr-4"><span className="sr-only">Ações</span></TableHead></TableRow></TableHeader>

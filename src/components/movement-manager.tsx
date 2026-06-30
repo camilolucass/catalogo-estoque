@@ -62,32 +62,38 @@ export function MovementManager({ products, movements, selectedProductId }: Move
 
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const formElement = event.currentTarget;
     setPending(true);
-    const form = new FormData(event.currentTarget);
-    const response = await fetch("/api/stock-movements", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        productId: form.get("productId"),
-        type: form.get("type"),
-        quantity: form.get("quantity"),
-        movementDate: form.get("movementDate"),
-        observation: form.get("observation"),
-      }),
-    });
-    setPending(false);
-    if (!response.ok) return toast.error(await responseMessage(response));
-    toast.success(formType === "entrada" ? "Entrada registrada e saldo atualizado." : "Saída registrada e saldo atualizado.");
-    event.currentTarget.reset();
-    setFormProductId(initialProduct);
-    setFormType("entrada");
-    router.refresh();
+    try {
+      const form = new FormData(formElement);
+      const response = await fetch("/api/stock-movements", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          productId: form.get("productId"),
+          type: form.get("type"),
+          quantity: form.get("quantity"),
+          movementDate: form.get("movementDate"),
+          observation: form.get("observation"),
+        }),
+      });
+      if (!response.ok) return toast.error(await responseMessage(response));
+      toast.success(formType === "entrada" ? "Entrada registrada e saldo atualizado." : "Saída registrada e saldo atualizado.");
+      formElement.reset();
+      setFormProductId(initialProduct);
+      setFormType("entrada");
+      router.refresh();
+    } catch {
+      toast.error("Não foi possível registrar a movimentação.");
+    } finally {
+      setPending(false);
+    }
   }
 
   return (
     <div className="space-y-5">
       <section className="grid gap-4 xl:grid-cols-[1.15fr_0.85fr]">
-        <Card className="border-border/70 bg-card/82 panel-glow">
+        <Card className="border bg-card shadow-sm">
           <CardHeader><CardTitle>Registrar movimentação</CardTitle><CardDescription>O saldo é atualizado automaticamente.</CardDescription></CardHeader>
           <CardContent>
             <form onSubmit={submit} className="grid gap-4 sm:grid-cols-2">
@@ -102,12 +108,12 @@ export function MovementManager({ products, movements, selectedProductId }: Move
           </CardContent>
         </Card>
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-1">
-          <Card className="border-primary/20 bg-primary/8"><CardContent><div className="flex items-center justify-between"><div><p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">Entradas registradas</p><p className="metric-number mt-3 text-4xl font-semibold text-primary">{totals.entrada}</p><p className="mt-1 text-xs text-muted-foreground">unidades no histórico</p></div><span className="flex size-12 items-center justify-center rounded-2xl bg-primary/12 text-primary"><ArrowDownToLine /></span></div></CardContent></Card>
-          <Card className="border-orange-400/20 bg-orange-400/6"><CardContent><div className="flex items-center justify-between"><div><p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">Saídas registradas</p><p className="metric-number mt-3 text-4xl font-semibold text-orange-300">{totals.saida}</p><p className="mt-1 text-xs text-muted-foreground">unidades no histórico</p></div><span className="flex size-12 items-center justify-center rounded-2xl bg-orange-400/10 text-orange-300"><ArrowUpFromLine /></span></div></CardContent></Card>
+          <Card className="border bg-card shadow-sm"><CardContent><div className="flex items-center justify-between"><div><p className="text-sm font-medium text-muted-foreground">Entradas registradas</p><p className="metric-number mt-3 text-3xl font-semibold">{totals.entrada}</p><p className="mt-1 text-xs text-muted-foreground">unidades no histórico</p></div><span className="flex size-10 items-center justify-center rounded-lg border bg-muted text-primary"><ArrowDownToLine className="size-4" /></span></div></CardContent></Card>
+          <Card className="border bg-card shadow-sm"><CardContent><div className="flex items-center justify-between"><div><p className="text-sm font-medium text-muted-foreground">Saídas registradas</p><p className="metric-number mt-3 text-3xl font-semibold">{totals.saida}</p><p className="mt-1 text-xs text-muted-foreground">unidades no histórico</p></div><span className="flex size-10 items-center justify-center rounded-lg border bg-muted text-orange-300"><ArrowUpFromLine className="size-4" /></span></div></CardContent></Card>
         </div>
       </section>
 
-      <Card className="border-border/70 bg-card/78">
+      <Card className="border bg-card shadow-sm">
         <CardHeader><CardTitle>Histórico de movimentações</CardTitle></CardHeader>
         <CardContent className="space-y-4 px-0">
           <div className="grid gap-3 px-4 md:grid-cols-[1fr_220px_180px]">

@@ -33,9 +33,9 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
       <Button asChild variant="ghost" size="sm"><Link href="/produtos"><ArrowLeft />Voltar para produtos</Link></Button>
       <PageHeader title={product.name} description={product.description || "Produto sem descrição cadastrada."} action={<div className="flex items-center gap-2"><StockBadge product={product} />{product.isActive && <Button asChild><Link href={`/movimentacoes?productId=${product.id}`}><ArrowLeftRight />Movimentar</Link></Button>}</div>} />
       <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        {summaries.map(({ label, value, icon: Icon }) => <Card key={label} className="border-border/70 bg-card/78"><CardContent><div className="mb-5 flex size-9 items-center justify-center rounded-xl bg-primary/10 text-primary"><Icon className="size-4" /></div><p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">{label}</p><p className="metric-number mt-2 text-2xl font-semibold">{value}</p></CardContent></Card>)}
+        {summaries.map(({ label, value, icon: Icon }) => <Card key={label} className="border bg-card shadow-sm"><CardContent><div className="mb-5 flex size-9 items-center justify-center rounded-lg border bg-muted text-muted-foreground"><Icon className="size-4" /></div><p className="text-sm font-medium text-muted-foreground">{label}</p><p className="metric-number mt-2 text-2xl font-semibold">{value}</p></CardContent></Card>)}
       </section>
-      <Card className="border-border/70 bg-card/78">
+      <Card className="border bg-card shadow-sm">
         <CardHeader><CardTitle>Histórico completo</CardTitle></CardHeader>
         <CardContent className="px-0">
           <Table><TableHeader><TableRow><TableHead className="pl-4">Data</TableHead><TableHead>Tipo</TableHead><TableHead>Quantidade</TableHead><TableHead>Observação</TableHead><TableHead className="pr-4">Responsável</TableHead></TableRow></TableHeader><TableBody>

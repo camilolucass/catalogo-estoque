@@ -66,37 +66,48 @@ export function ProductManager({ products, categories }: ProductManagerProps) {
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setPending(true);
-    const form = new FormData(event.currentTarget);
-    const body = {
-      name: form.get("name"),
-      description: form.get("description"),
-      categoryId: form.get("categoryId"),
-      price: form.get("price"),
-      minimumStock: form.get("minimumStock"),
-      ...(!editing ? { initialStock: form.get("initialStock") } : {}),
-    };
-    const response = await fetch(editing ? `/api/products/${editing.id}` : "/api/products", {
-      method: editing ? "PUT" : "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
-    setPending(false);
-    if (!response.ok) return toast.error(await responseMessage(response));
-    toast.success(editing ? "Produto atualizado." : "Produto criado com estoque inicial registrado.");
-    setDialogOpen(false);
-    router.refresh();
+    try {
+      const form = new FormData(event.currentTarget);
+      const body = {
+        name: form.get("name"),
+        description: form.get("description"),
+        categoryId: form.get("categoryId"),
+        price: form.get("price"),
+        minimumStock: form.get("minimumStock"),
+        ...(!editing ? { initialStock: form.get("initialStock") } : {}),
+      };
+      const response = await fetch(editing ? `/api/products/${editing.id}` : "/api/products", {
+        method: editing ? "PUT" : "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      if (!response.ok) return toast.error(await responseMessage(response));
+      toast.success(editing ? "Produto atualizado." : "Produto criado com estoque inicial registrado.");
+      setDialogOpen(false);
+      setEditing(null);
+      router.refresh();
+    } catch {
+      toast.error("Não foi possível concluir a operação.");
+    } finally {
+      setPending(false);
+    }
   }
 
   async function remove() {
     if (!deleting) return;
     setPending(true);
-    const response = await fetch(`/api/products/${deleting.id}`, { method: "DELETE" });
-    const payload = (await response.json().catch(() => null)) as { data?: { inactivated: boolean }; error?: string } | null;
-    setPending(false);
-    if (!response.ok) return toast.error(payload?.error || "Não foi possível excluir o produto.");
-    toast.success(payload?.data?.inactivated ? "Produto inativado para preservar o histórico." : "Produto excluído.");
-    setDeleting(null);
-    router.refresh();
+    try {
+      const response = await fetch(`/api/products/${deleting.id}`, { method: "DELETE" });
+      const payload = (await response.json().catch(() => null)) as { data?: { inactivated: boolean }; error?: string } | null;
+      if (!response.ok) return toast.error(payload?.error || "Não foi possível excluir o produto.");
+      toast.success(payload?.data?.inactivated ? "Produto inativado para preservar o histórico." : "Produto excluído.");
+      setDeleting(null);
+      router.refresh();
+    } catch {
+      toast.error("Não foi possível excluir o produto.");
+    } finally {
+      setPending(false);
+    }
   }
 
   return (
@@ -125,7 +136,7 @@ export function ProductManager({ products, categories }: ProductManagerProps) {
         </Dialog>
       </div>
 
-      <Card className="border-border/70 bg-card/78">
+      <Card className="border bg-card shadow-sm">
         <CardContent className="px-0">
           <Table>
             <TableHeader><TableRow><TableHead className="pl-4">Produto</TableHead><TableHead>Categoria</TableHead><TableHead>Preço</TableHead><TableHead>Estoque</TableHead><TableHead>Status</TableHead><TableHead className="w-14 pr-4"><span className="sr-only">Ações</span></TableHead></TableRow></TableHeader>

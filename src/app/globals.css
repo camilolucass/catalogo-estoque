@@ -123,12 +123,6 @@
   }
   body {
     @apply bg-background text-foreground;
-    background-image:
-      radial-gradient(circle at 82% -10%, oklch(0.43 0.12 155 / 18%), transparent 34rem),
-      linear-gradient(oklch(1 0 0 / 1.5%) 1px, transparent 1px),
-      linear-gradient(90deg, oklch(1 0 0 / 1.5%) 1px, transparent 1px);
-    background-size: auto, 40px 40px, 40px 40px;
-    background-attachment: fixed;
   }
   html {
     @apply font-sans;
@@ -156,34 +150,5 @@
     font-family: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
     font-variant-numeric: tabular-nums;
     letter-spacing: -0.045em;
-  }
-  .panel-glow {
-    box-shadow: 0 24px 80px oklch(0.06 0.02 160 / 35%), inset 0 1px oklch(1 0 0 / 4%);
-  }
-  .login-spotlight {
-    --spotlight-x: 50%;
-    --spotlight-y: 35%;
-    isolation: isolate;
-  }
-  .login-spotlight::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    background:
-      radial-gradient(12rem circle at var(--spotlight-x) var(--spotlight-y), oklch(0.8 0.2 154 / 24%), transparent 72%),
-      radial-gradient(32rem circle at var(--spotlight-x) var(--spotlight-y), oklch(0.55 0.15 154 / 16%), transparent 68%);
-    opacity: 0.72;
-    transition: opacity 280ms ease;
-  }
-  .login-spotlight[data-pointer="active"]::before {
-    opacity: 1;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .login-spotlight::before {
-    transition: none;
   }
 }
