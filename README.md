@@ -41,37 +41,6 @@ Eu deixei a interface responsável apenas pela interação com o usuário. As va
 
 O saldo inicial entra como uma movimentação, produtos com histórico são inativados em vez de excluídos e as movimentações não podem ser alteradas depois de registradas. Assim, o saldo atual pode ser conferido com o histórico.
 
-## Rodando o projeto
-
-É necessário ter Node.js 22 ou superior e pnpm 11.
-
-```powershell
-pnpm install
-Copy-Item .env.example .env.local
-pnpm dev
-```
-
-O projeto usa um Supabase online. Não é necessário instalar ou executar o Supabase localmente.
-
-Preencha estas variáveis em `.env.local`:
-
-```env
-SUPABASE_URL=
-SUPABASE_PUBLISHABLE_KEY=
-DEMO_USERNAME=Climba
-DEMO_USER_EMAIL=
-```
-
-`SUPABASE_SECRET_KEY` e `DEMO_USER_PASSWORD` são usados somente pelo script de criação da conta de teste. A chave secreta não deve ficar no ambiente da aplicação.
-
-## Comandos de verificação
-
-```powershell
-pnpm lint
-pnpm typecheck
-pnpm test
-pnpm build
-```
 
 ## Estrutura principal
 
