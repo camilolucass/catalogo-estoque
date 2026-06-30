@@ -40,11 +40,8 @@ export function LoginForm() {
       </div>
       <Button type="submit" className="h-11 w-full gap-2 font-semibold" disabled={pending}>
         {pending ? <LoaderCircle className="animate-spin" /> : <ArrowRight />}
-        {pending ? "Validando acesso..." : "Entrar no sistema"}
+        {pending ? "Validando acesso..." : "Entrar"}
       </Button>
-      <div className="rounded-lg border border-border/70 bg-muted/35 px-3 py-2.5 text-center text-xs text-muted-foreground">
-        Ambiente de demonstração protegido · acesso auditado
-      </div>
     </form>
   );
 }
