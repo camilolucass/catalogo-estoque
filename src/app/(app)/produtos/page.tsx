@@ -9,7 +9,7 @@ export default async function ProductsPage() {
   const [products, categories] = await Promise.all([listProducts({ includeInactive: true }), listCategories()]);
   return (
     <div className="space-y-7">
-      <PageHeader eyebrow="Catálogo" title="Produtos" description="Consulte preços, disponibilidade e níveis mínimos. O saldo é sempre derivado das movimentações registradas." />
+      <PageHeader title="Produtos" />
       <ProductManager products={products} categories={categories} />
     </div>
   );

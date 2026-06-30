@@ -23,13 +23,13 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-7">
-      <PageHeader eyebrow="Centro de comando" title="Visão geral do estoque" description="Acompanhe disponibilidade, fluxo de materiais e pontos de atenção em uma única leitura." action={<Button asChild variant="outline"><Link href="/produtos">Ver catálogo completo</Link></Button>} />
+      <PageHeader title="Visão geral do estoque" action={<Button asChild variant="outline"><Link href="/produtos">Produtos</Link></Button>} />
 
       <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4" aria-label="Indicadores principais">
         <MetricCard label="Produtos ativos" value={metrics.totalProducts} detail={`${metrics.entriesThisMonth} unidades recebidas no mês`} icon={Boxes} trend="up" />
-        <MetricCard label="Categorias" value={metrics.totalCategories} detail="Organização do catálogo" icon={FolderTree} />
-        <MetricCard label="Estoque baixo" value={metrics.lowStockProducts} detail="Reposição recomendada" icon={AlertTriangle} tone="warning" />
-        <MetricCard label="Sem estoque" value={metrics.outOfStockProducts} detail="Ação imediata necessária" icon={PackageX} tone="danger" trend={metrics.outOfStockProducts > 0 ? "down" : undefined} />
+        <MetricCard label="Categorias" value={metrics.totalCategories} detail="Categorias cadastradas" icon={FolderTree} />
+        <MetricCard label="Estoque baixo" value={metrics.lowStockProducts} detail="Abaixo do estoque mínimo" icon={AlertTriangle} tone="warning" />
+        <MetricCard label="Sem estoque" value={metrics.outOfStockProducts} detail="Produtos com saldo zero" icon={PackageX} tone="danger" trend={metrics.outOfStockProducts > 0 ? "down" : undefined} />
       </section>
 
       <section className="grid gap-4 xl:grid-cols-[1.55fr_0.85fr]">
@@ -37,7 +37,6 @@ export default async function DashboardPage() {
           <CardHeader>
             <CardTitle>Fluxo de movimentações</CardTitle>
             <CardDescription>Volume de entradas e saídas nos últimos sete dias</CardDescription>
-            <CardAction><Badge variant="outline">Atualizado agora</Badge></CardAction>
           </CardHeader>
           <CardContent><MovementChart data={data.movementTrend} /></CardContent>
         </Card>
@@ -69,7 +68,7 @@ export default async function DashboardPage() {
         </Card>
 
         <Card className="border-border/70 bg-card/78">
-          <CardHeader><CardTitle>Saúde operacional</CardTitle><CardDescription>Disponibilidade geral do catálogo</CardDescription></CardHeader>
+          <CardHeader><CardTitle>Níveis de estoque</CardTitle></CardHeader>
           <CardContent className="space-y-5">
             <div className="rounded-2xl border border-border/60 bg-background/35 p-4">
               <div className="mb-3 flex items-end justify-between"><span className="text-sm text-muted-foreground">Produtos saudáveis</span><span className="metric-number text-2xl font-semibold text-primary">{healthy}%</span></div>

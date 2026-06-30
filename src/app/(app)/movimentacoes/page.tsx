@@ -9,7 +9,7 @@ export default async function MovementsPage({ searchParams }: { searchParams: Pr
   const [{ productId }, products, movements] = await Promise.all([searchParams, listProducts({ includeInactive: true }), listMovements()]);
   return (
     <div className="space-y-7">
-      <PageHeader eyebrow="Operação" title="Movimentações de estoque" description="Registre entradas e saídas com atualização automática, validação de saldo e rastreabilidade completa." />
+      <PageHeader title="Movimentações de estoque" />
       <MovementManager products={products} movements={movements} selectedProductId={productId} />
     </div>
   );

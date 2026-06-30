@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   BarChart3,
-  Boxes,
   ChevronDown,
   CircleUserRound,
   FolderTree,
@@ -94,11 +93,6 @@ export function AppShell({ user, children }: AppShellProps) {
         <Separator className="my-5" />
         <Navigation pathname={pathname} />
         <div className="mt-auto space-y-4">
-          <div className="rounded-2xl border border-primary/20 bg-primary/8 p-4">
-            <div className="mb-3 flex size-8 items-center justify-center rounded-lg bg-primary/15 text-primary"><Boxes className="size-4" /></div>
-            <p className="text-sm font-medium">Controle operacional</p>
-            <p className="mt-1 text-xs leading-5 text-muted-foreground">Saldo protegido por transações e histórico auditável.</p>
-          </div>
           <div className="flex items-center gap-3 rounded-xl px-2 py-1">
             <Avatar className="size-9 border border-border"><AvatarFallback><CircleUserRound className="size-4" /></AvatarFallback></Avatar>
             <div className="min-w-0"><p className="truncate text-sm font-medium">{user.name}</p><p className="truncate text-xs text-muted-foreground">Administrador</p></div>

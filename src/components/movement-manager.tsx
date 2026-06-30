@@ -88,7 +88,7 @@ export function MovementManager({ products, movements, selectedProductId }: Move
     <div className="space-y-5">
       <section className="grid gap-4 xl:grid-cols-[1.15fr_0.85fr]">
         <Card className="border-border/70 bg-card/82 panel-glow">
-          <CardHeader><CardTitle>Registrar movimentação</CardTitle><CardDescription>O saldo será recalculado automaticamente pelo servidor.</CardDescription></CardHeader>
+          <CardHeader><CardTitle>Registrar movimentação</CardTitle><CardDescription>O saldo é atualizado automaticamente.</CardDescription></CardHeader>
           <CardContent>
             <form onSubmit={submit} className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2 sm:col-span-2"><Label>Produto</Label><Select name="productId" value={formProductId} onValueChange={setFormProductId} required><SelectTrigger className="w-full"><SelectValue placeholder="Selecione um produto" /></SelectTrigger><SelectContent>{activeProducts.map((product) => <SelectItem key={product.id} value={product.id}>{product.name} · {product.stockQuantity} un.</SelectItem>)}</SelectContent></Select></div>
@@ -108,7 +108,7 @@ export function MovementManager({ products, movements, selectedProductId }: Move
       </section>
 
       <Card className="border-border/70 bg-card/78">
-        <CardHeader><CardTitle>Histórico de movimentações</CardTitle><CardDescription>Registros preservados para auditoria e rastreabilidade</CardDescription></CardHeader>
+        <CardHeader><CardTitle>Histórico de movimentações</CardTitle></CardHeader>
         <CardContent className="space-y-4 px-0">
           <div className="grid gap-3 px-4 md:grid-cols-[1fr_220px_180px]">
             <div className="relative"><Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" /><Input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Buscar produto ou observação..." className="pl-9" /></div>

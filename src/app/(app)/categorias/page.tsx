@@ -9,7 +9,7 @@ export default async function CategoriesPage() {
   const categories = await listCategories();
   return (
     <div className="space-y-7">
-      <PageHeader eyebrow="Organização" title="Categorias" description="Estruture o catálogo, acompanhe os vínculos e mantenha cada grupo de materiais sob controle." />
+      <PageHeader title="Categorias" />
       <CategoryManager categories={categories} />
     </div>
   );
