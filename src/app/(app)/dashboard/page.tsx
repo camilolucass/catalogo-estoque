@@ -53,7 +53,7 @@ export default async function DashboardPage() {
                 {data.recentMovements.map((movement) => (
                   <TableRow key={movement.id}>
                     <TableCell className="pl-4 font-medium">{movement.productName}</TableCell>
-                    <TableCell><Badge variant="outline" className={movement.type === "entrada" ? "border-primary/25 bg-primary/10 text-primary" : "border-orange-400/25 bg-orange-400/10 text-orange-300"}>{movement.type === "entrada" ? <ArrowDownToLine /> : <ArrowUpFromLine />}{movement.type}</Badge></TableCell>
+                    <TableCell><Badge variant="outline" className={movement.type === "entrada" ? "border-primary/25 bg-primary/10 text-primary" : "border-orange-400/25 bg-orange-400/10 text-orange-700 dark:text-orange-300"}>{movement.type === "entrada" ? <ArrowDownToLine /> : <ArrowUpFromLine />}{movement.type}</Badge></TableCell>
                     <TableCell className="metric-number font-medium">{movement.quantity}</TableCell>
                     <TableCell className="hidden text-muted-foreground md:table-cell">{movement.userName}</TableCell>
                     <TableCell className="pr-4 text-right text-xs text-muted-foreground">{dateTimeFormatter.format(new Date(movement.movementDate))}</TableCell>

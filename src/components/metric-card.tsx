@@ -18,7 +18,7 @@ export function MetricCard({ label, value, detail, icon: Icon, tone = "default",
       <CardContent className="flex h-full flex-col justify-between">
         <div className="flex items-center justify-between">
           <p className="text-sm font-medium text-muted-foreground">{label}</p>
-          <span className={cn("flex size-9 items-center justify-center rounded-lg border bg-muted text-muted-foreground", tone === "warning" && "border-amber-400/30 text-amber-400", tone === "danger" && "border-destructive/30 text-destructive")}><Icon className="size-4" /></span>
+          <span className={cn("flex size-9 items-center justify-center rounded-lg border bg-muted text-muted-foreground", tone === "warning" && "border-amber-400/30 text-amber-700 dark:text-amber-400", tone === "danger" && "border-destructive/30 text-destructive")}><Icon className="size-4" /></span>
         </div>
         <div>
           <p className="metric-number text-3xl font-semibold">{value}</p>

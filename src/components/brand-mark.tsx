@@ -1,4 +1,3 @@
-import { Boxes } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface BrandMarkProps {
@@ -7,11 +6,10 @@ interface BrandMarkProps {
 
 export function BrandMark({ className }: BrandMarkProps) {
   return (
-    <div className={cn("flex items-center", className)}>
-      <div className="relative flex size-10 items-center justify-center rounded-lg border border-primary/30 bg-primary/10 text-primary">
-        <Boxes className="size-5" aria-hidden="true" />
-        <span className="absolute -right-0.5 -top-0.5 size-2.5 rounded-full border-2 border-background bg-primary" />
-      </div>
+    <div className={cn("flex h-10 items-center", className)}>
+      <span className="text-base font-semibold tracking-tight text-sidebar-foreground">
+        Controlador de Estoque
+      </span>
     </div>
   );
 }
