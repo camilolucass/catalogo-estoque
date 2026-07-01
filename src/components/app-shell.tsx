@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { ThemeToggle } from "@/components/theme-toggle";
 import type { AuthUser } from "@/lib/domain";
 import { cn } from "@/lib/utils";
 
@@ -99,6 +100,7 @@ export function AppShell({ user, children }: AppShellProps) {
             </SheetContent>
           </Sheet>
           <div className="ml-auto flex items-center gap-2">
+            <ThemeToggle />
             <UserMenu user={user} />
           </div>
         </header>

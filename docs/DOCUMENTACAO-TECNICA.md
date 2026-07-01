@@ -37,7 +37,7 @@ O fluxo de uma operação é:
 | Next.js 16 | App Router, páginas, Server Components, Server Actions, rotas da API e proxy de sessão |
 | React 19 | Formulários, filtros, diálogos e componentes interativos |
 | TypeScript | Tipagem das entidades, filtros, serviços e respostas |
-| Tailwind CSS 4 | Estilos, responsividade e tema visual |
+| Tailwind CSS 4 e next-themes | Estilos, responsividade e temas claro/escuro |
 | shadcn/ui e Radix UI | Botões, tabelas, diálogos, menus, campos e alertas acessíveis |
 | Supabase Auth | Autenticação da conta de avaliação |
 | Supabase PostgreSQL | Persistência de categorias, produtos, perfis e movimentações |

@@ -145,9 +145,15 @@ Cada registro informa:
 
 O histórico também pode ser aberto pelo menu de ações de cada produto.
 
-## 8. Encerrar a sessão
+## 8. Alternar entre tema claro e escuro
 
-1. Clique no usuário **Climba**, no canto superior direito.
+Clique no botão com o ícone de sol ou lua no canto superior direito. A escolha é salva no navegador e será mantida nos próximos acessos.
+
+O mesmo botão está disponível na tela de login.
+
+## 9. Encerrar a sessão
+
+1. Clique no seu usuário, no canto superior direito.
 2. Clique em **Sair do sistema**.
 
 O sistema encerrará a sessão e voltará para a tela de acesso.

@@ -25,6 +25,7 @@ Essa conta existe somente para a avaliação do projeto.
 - histórico de movimentações e responsável pela operação;
 - filtros e busca nas telas de produtos e movimentações;
 - dashboard responsivo com indicadores e gráficos.
+- tema claro e escuro com preferência salva no navegador.
 
 ## Tecnologias usadas
 
