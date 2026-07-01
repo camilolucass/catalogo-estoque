@@ -70,7 +70,7 @@ scripts              criação do usuário de avaliação
 docs                 documentação do projeto
 ```
 
-As páginas do App Router são Server Components por padrão. A interatividade foi isolada em componentes cliente, como os formulários, filtros e o efeito de iluminação da tela de login.
+As páginas do App Router são Server Components por padrão. A interatividade foi isolada em componentes cliente, como os formulários, filtros.
 
 ## Modelo de dados
 
